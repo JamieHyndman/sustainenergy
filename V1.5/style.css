@@ -1,0 +1,358 @@
+/* General Body and Typography */
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f5fff8;
+    color: #2b463c;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #17994c;
+    text-align: center;
+    margin-top: 1.5em;
+}
+
+h2 {
+    font-size: 1.5em;
+    color: #17994c;
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 1.2em;
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #d4f0df;
+    padding: 1em 2em;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex-wrap: wrap;
+}
+
+.logo {
+    height: 50px;
+}
+
+.nav-toggle {
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: none;
+}
+
+.nav-center {
+    flex: 1;
+    text-align: center;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 1.5em;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu a, .nav-link {
+    text-decoration: none;
+    color: #2b463c;
+    font-weight: bold;
+}
+
+.nav-menu a:hover, .nav-link:hover {
+    color: #17994c;
+}
+
+.nav-right {
+    display: flex;
+    gap: 1em;
+}
+
+/* Responsive Navigation */
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: block;
+    }
+
+    .nav-center {
+        width: 100%;
+    }
+
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        background: #d4f0df;
+        padding: 1em 0;
+        margin-top: 1em;
+    }
+
+    .nav-menu.active {
+        display: flex;
+    }
+
+    .nav-right {
+        margin-top: 1em;
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+/* Main Content */
+.main-content {
+    padding: 2em;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2em;
+}
+
+.card {
+    background: #91ff87;
+    border: 1px solid #cdebdc;
+    padding: 1.5em;
+    border-radius: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+/* Form Styling */
+.form-container {
+    padding: 2em;
+    max-width: 500px;
+    margin: 2em auto;
+    background: #f2fef5;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.form input, .form button {
+    padding: 0.75em;
+    font-size: 1em;
+}
+
+.form-message {
+    background: #e7ffe7;
+    border-left: 5px solid #a8e994;
+    padding: 1em;
+    margin-bottom: 1em;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* Question Container */
+.question-container {
+    display: none;
+    margin-bottom: 30px;
+    background: #e0f7e0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.5s ease;
+}
+
+.question-container.active {
+    display: block;
+}
+
+/* Radio Button Groups */
+.radio-group {
+    display: flex;
+    gap: 1.5em;
+    margin: 1em 0;
+}
+
+.radio-group input[type="radio"] {
+    display: none;
+}
+
+.radio-group label {
+    padding: 1em 1.5em;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.radio-group input[type="radio"]:checked + label {
+    outline: 3px solid #000;
+}
+
+.red-label {
+    background: rgba(255, 0, 0, 0.4);
+}
+
+.amber-label {
+    background: rgba(255, 165, 0, 0.4);
+}
+
+.green-label {
+    background: rgba(0, 128, 0, 0.4);
+}
+
+/* Progress Bar */
+.progress-bar {
+    height: 20px;
+    background-color: #d4f0df;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 1em 0;
+}
+
+.progress-bar-inner {
+    height: 100%;
+    background-color: #57cc99;
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+/* Button */
+button {
+    padding: 0.7em 1.5em;
+    border: none;
+    background-color: #2b463c;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 1em;
+}
+
+button:hover {
+    background-color: #17994c;
+}
+
+/* Result Section */
+.result {
+    padding: 2em;
+    background-color: #e6fbe8;
+    border-radius: 12px;
+    max-width: 600px;
+    margin: 2em auto;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.result p {
+    font-size: 18px;
+    color: #4c8c4a;
+}
+
+.result a {
+    font-size: 18px;
+    color: #17994c;
+    text-decoration: none;
+}
+
+.result a:hover {
+    text-decoration: underline;
+}
+
+/* Shop Select Styling */
+select {
+    padding: 0.75em;
+    font-size: 1em;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #2b463c;
+    appearance: none;
+}
+
+select:focus {
+    outline: none;
+    border-color: #17994c;
+    box-shadow: 0 0 0 2px rgba(23, 153, 76, 0.3);
+}
+
+option {
+    background: #fff;
+    color: #2b463c;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    padding: 1em;
+    background-color: #d4f0df;
+    font-size: 0.9em;
+    color: #555;
+    margin-top: 3em;
+}
+
+footer a {
+    text-decoration: none;
+    margin: 0 10px;
+    color: #007b5e;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .footer-links {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .footer-links a {
+        display: inline-block;
+        margin: 5px 8px;
+    }
+}
