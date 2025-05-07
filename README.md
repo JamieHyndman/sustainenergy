@@ -85,7 +85,7 @@ C:\xampp\htdocs\sustain-energy
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2025 at 11:38 PM
+-- Generation Time: May 07, 2025 at 03:33 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -119,7 +119,9 @@ CREATE TABLE `calculator_results` (
 INSERT INTO `calculator_results` (`id`, `user_id`, `year`, `total_score`, `certificate_level`, `created_at`) VALUES
 (28, 1, '2025', 0, 'Bronze', '2025-04-22 22:33:41'),
 (29, 2, '2025', 70, 'Gold', '2025-04-30 23:19:15'),
-(31, 7, '2025', 30, 'Bronze', '2025-05-02 19:11:43');
+(31, 7, '2025', 30, 'Bronze', '2025-05-02 19:11:43'),
+(32, 9, '2025', 50, 'Bronze', '2025-05-07 00:29:53'),
+(33, 16, '2025', 60, 'Silver', '2025-05-07 01:23:56');
 
 -- --------------------------------------------------------
 
@@ -143,7 +145,9 @@ CREATE TABLE `cards` (
 INSERT INTO `cards` (`id`, `user_id`, `cardholder_name`, `card_number`, `expiry_date`, `cvv`) VALUES
 (13, 1, 'test', '2222222222222222', '12/27', '123'),
 (14, 2, 'test2', '1111111111111111', '12/27', '123'),
-(15, 7, 'jg', '1111111111111111', '12/27', '333');
+(15, 7, 'jg', '1111111111111111', '12/27', '333'),
+(16, 9, '11111', '1111111111111111', '11/27', '123'),
+(17, 16, '77777777777777777', '7777777777777777', '12/27', '123');
 
 -- --------------------------------------------------------
 
@@ -170,7 +174,8 @@ INSERT INTO `feedback` (`id`, `name`, `email`, `phone`, `message`, `submitted_at
 (2, 'test', 'test@test.com', '1234', 'test', '2025-04-23 00:07:19', NULL),
 (3, 'test', 'test@test.com', '1234', 'test', '2025-04-23 00:09:10', NULL),
 (4, 'test2', 'test2@test2.com', '0131', 'hello', '2025-05-01 17:37:15', NULL),
-(5, 'test2', 'test2@test2.com', '0131', 'hello 2', '2025-05-01 17:42:16', 2);
+(5, 'test2', 'test2@test2.com', '0131', 'hello 2', '2025-05-01 17:42:16', 2),
+(6, 'test7', 'test7@test7.com', '4567', 'test7 hello', '2025-05-07 01:23:03', 16);
 
 -- --------------------------------------------------------
 
@@ -193,7 +198,9 @@ CREATE TABLE `subscriptions` (
 
 INSERT INTO `subscriptions` (`id`, `user_id`, `start_date`, `price`, `status`) VALUES
 (5, 2, '2025-05-01', 99.00, 'active'),
-(6, 7, '2025-05-02', 99.00, 'active');
+(6, 7, '2025-05-02', 99.00, 'active'),
+(7, 9, '2025-05-06', 99.99, 'active'),
+(8, 16, '2025-05-07', 99.99, 'active');
 
 -- --------------------------------------------------------
 
@@ -204,26 +211,35 @@ INSERT INTO `subscriptions` (`id`, `user_id`, `start_date`, `price`, `status`) V
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `company_name` varchar(255) NOT NULL,
+  `business_id` varchar(10) NOT NULL,
   `contact_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password_hash` varchar(255) NOT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `join_date` date DEFAULT curdate(),
   `status` enum('active','inactive','deactivated') DEFAULT 'active',
-  `company_logo` varchar(255) DEFAULT NULL
+  `company_logo` varchar(255) DEFAULT NULL,
+  `is_admin` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `company_name`, `contact_name`, `email`, `password_hash`, `phone`, `join_date`, `status`, `company_logo`) VALUES
-(1, 'test', 'test', 'test@test.com', '$2y$10$TxGABBYV5y6wImtQnuuavuV4q0ueVD5kxLHnnllxej7inQ7uh/cEO', '1234', '2025-04-15', 'active', '5.png'),
-(2, 'test2', 'test2', 'test2@test2.com', '$2y$10$.xTu6GE3Ip9YcEWkwfhuve5AY47MggOe7AapoQF3WHv1SmBZWxI66', '1234', '2025-05-01', 'active', '5.png'),
-(4, 'ValidTest', 'ValidTest', 'Validtest@ValidTest.com', '$2y$10$EmZ4CTOeWeSc3JC.9qACvu/6P2NCxZpuL6SVPbNUelfqxaxBe2yre', '', '2025-05-02', 'active', NULL),
-(5, 'ValidTest2', 'ValidTest2', 'Validtest2@ValidTest.com', '$2y$10$dItadkc.ZF8WJRbYORdnpOsOpmZ49aIV3oMU2m0mIOxuM3h6XhLIq', '', '2025-05-02', 'active', NULL),
-(6, 'ValidTest3', 'ValidTest3', 'Validtest3@ValidTest.com', '$2y$10$McgxWFvl5xgNZ.LeTCcDbuogsZWw1.zjtaxtaxoflrPJZQvgDS7zK', '011111', '2025-05-02', 'active', NULL),
-(7, 'SingleCharPass', 'SingleCharPass', 'SingleCharPass@SingleCharPass.com', '$2y$10$rAOEaE2sGmPCTqar9M0xt.BdByi81XlFAD//GEU8kFupLS6YoLKXy', '123', '2025-05-02', 'active', NULL);
+INSERT INTO `users` (`id`, `company_name`, `business_id`, `contact_name`, `email`, `password_hash`, `phone`, `join_date`, `status`, `company_logo`, `is_admin`) VALUES
+(1, 'testUpdate2', '', 'testUpdate2', 'testUpdate2@test.com', '$2y$10$TxGABBYV5y6wImtQnuuavuV4q0ueVD5kxLHnnllxej7inQ7uh/cEO', '9876', '2025-04-15', 'active', '5.png', 1),
+(2, 'test2', '', 'test2', 'test2@test2.com', '$2y$10$.xTu6GE3Ip9YcEWkwfhuve5AY47MggOe7AapoQF3WHv1SmBZWxI66', '1234', '2025-05-01', 'active', '5.png', 1),
+(5, 'ValidTest2', '', 'ValidTest2', 'Validtest2@ValidTest.com', '$2y$10$dItadkc.ZF8WJRbYORdnpOsOpmZ49aIV3oMU2m0mIOxuM3h6XhLIq', '', '2025-05-02', 'active', NULL, 0),
+(6, 'ValidTest3', '', 'ValidTest3', 'Validtest3@ValidTest.com', '$2y$10$McgxWFvl5xgNZ.LeTCcDbuogsZWw1.zjtaxtaxoflrPJZQvgDS7zK', '011111', '2025-05-02', 'active', NULL, 0),
+(7, 'SingleCharPass', '', 'SingleCharPass', 'SingleCharPass@SingleCharPass.com', '$2y$10$rAOEaE2sGmPCTqar9M0xt.BdByi81XlFAD//GEU8kFupLS6YoLKXy', '123', '2025-05-02', 'active', NULL, 0),
+(9, 'Jay', '', 'jay', 'jay@jay.com', '$2y$10$nyuORkxGWcefdvj0PkQ6C.mYQiAF.Az9oWHFQEQsBFcaR8o2OhSZW', '0131', '2025-05-06', 'active', NULL, 1),
+(10, 'notadmin', '', 'notadmin', 'notadmin@notadmin.com', '$2y$10$YyeADTrGLOZ06swvZMcnguK/Gr.N1BGocDJvdbucAKB/8/u8JGzuy', '123', '2025-05-06', 'active', NULL, 0),
+(11, 'ForogotPasswordTest', '609816', 'ForogotPasswordTest', 'ForogotPasswordTest@ForogotPasswordTest.com', '$2y$10$7uBQlNS7hNxnSPrZoiUkSu8XMyVFsw2wep/0/OMQTQpeM4vsNXFrq', '1234', '2025-05-07', 'active', NULL, 1),
+(12, 'Admintest', '139665', 'Admintest', 'Admintest.Admintest.com', '$2y$10$rp.n7274VIh3S8AKztSIXOJ73XhmG4/JPcAZMMi8.DUsQ3hLc0Wh2', '1234', '2025-05-07', 'active', NULL, 1),
+(13, 'Admintest1', '420538', 'Admintest1', 'Admintest1@Admintest.com', '$2y$10$bdpzWapOws50RVYER3ROcexo2/YOhQafO5osMidstVyeOKR68aqcW', '12334', '2025-05-07', 'active', NULL, 1),
+(14, 'notadmin1', '456495', 'notadmin1', 'notadmin1@notadmin1.com', '$2y$10$iIIu1bsnlBfWPuHwzrNIVezgW/wDkJJFzSFnpKekWnkvb/10JFGym', '1234', '2025-05-07', 'active', NULL, 0),
+(15, 'test5', '975581', 'test5', 'test5@test5.com', '$2y$10$TulFdDcUEmEwU0yvx7/5FulZ7wgGOlCl5o5PSzhrG03inUfUgEJMi', '1', '2025-05-07', 'active', NULL, 1),
+(16, 'test7', '685547', 'test7', 'test7@test7.com', '$2y$10$F1t0jJbbaRzYGUzhQnreQO4lvqnFw/pnIYqS2TyWpMpo/NVoD/XKm', '9876', '2025-05-07', 'active', 'logo1.png', 1);
 
 -- --------------------------------------------------------
 
@@ -255,7 +271,9 @@ INSERT INTO `vouchers` (`id`, `user_id`, `year`, `points_purchased`, `amount_pai
 (8, 1, '2025', 85, 850.00, '2025-04-23 10:54:34'),
 (9, 2, '2025', 10, 100.00, '2025-05-01 00:31:22'),
 (10, 2, '2025', 70, 700.00, '2025-05-02 13:34:16'),
-(11, 2, '2025', 20, 200.00, '2025-05-02 13:46:23');
+(11, 2, '2025', 20, 200.00, '2025-05-02 13:46:23'),
+(12, 9, '2025', 60, 600.00, '2025-05-07 00:34:42'),
+(13, 16, '2025', 15, 150.00, '2025-05-07 01:24:34');
 
 --
 -- Indexes for dumped tables
@@ -311,37 +329,37 @@ ALTER TABLE `vouchers`
 -- AUTO_INCREMENT for table `calculator_results`
 --
 ALTER TABLE `calculator_results`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `cards`
 --
 ALTER TABLE `cards`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `subscriptions`
 --
 ALTER TABLE `subscriptions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `vouchers`
 --
 ALTER TABLE `vouchers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
